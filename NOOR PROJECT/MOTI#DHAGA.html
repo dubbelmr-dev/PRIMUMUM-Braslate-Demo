@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOTIDHAGA | Luxury Jewelry</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Luxury Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Logo -->
+  <header class="logo">
+    <img src="logo.png" alt="" height="50px">
+    <div>MOTTIDHAGGA</div>
+  </header>
+
+  <!-- 3D Canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <h3>Customize Bracelet</h3>
+    
+    <div class="color-row" id="even-colors">
+      <h4>Even Beads (Light)</h4>
+      <div class="colors">
+        <button data-color="#ffb6c1"></button>
+        <button data-color="#f8c1d4"></button>
+        <button data-color="#ffd700"></button>
+        <button data-color="#00ffff"></button>
+        <button data-color="#ff69b4"></button>
+      </div>
+    </div>
+
+    <div class="color-row" id="odd-colors">
+      <h4>Odd Beads (Dark)</h4>
+      <div class="colors">
+        <button data-color="#4b0b3d"></button>
+        <button data-color="#8a2be2"></button>
+        <button data-color="#1e90ff"></button>
+        <button data-color="#ff4500"></button>
+        <button data-color="#ff1493"></button>
+      </div>
+    </div>
+
+    <div class="styles">
+      <button id="flip-style">Flip Style</button>
+    </div>
+
+    <button onclick="saveDesign()" class="save-btn">Save My Design</button>
+  </div>
+
+  <!-- Footer -->
+   
+  <footer class="footer">
+    <div class="footer-section">
+      <h4>About Motidhaga</h4>
+      <p>Premium Handmade jewelry for every style.</p>
+      
+    </div>
+    <div class="footer-section">
+      <h4>Links</h4>
+      <ul>
+        
+        <li><a href="https://www.instagram.com/mottidhagga07/">Shop</a></li>
+        <li><a href="whatsapp.com/channel/0029VbBYyEuAzNbvjho7PJ2f">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>📞 +92 305 7002133</p>
+      <a href="whatsapp.com/channel/0029VbBYyEuAzNbvjho7PJ2f" target="_blank">💬 WhatsApp</a>
+    </div>
+    
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="three.js"></script>
+</body>
