@@ -4,68 +4,410 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MOTIDHAGA | Luxury Jewelry</title>
-
-  <link rel="stylesheet" href="style.css">
-
+  
   <!-- Luxury Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Header/Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 15px;
+    }
+    
+    .logo div {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    
+    /* Main content layout */
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 160px);
+    }
+    
+    /* 3D Canvas Container */
+    #canvas-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Controls */
+    .controls {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    
+    .controls h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    
+    .color-row {
+      margin-bottom: 25px;
+    }
+    
+    .color-row h4 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+    
+    .colors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    
+    .colors button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      outline: none;
+    }
+    
+    .colors button:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 15px currentColor;
+    }
+    
+    .styles {
+      display: flex;
+      justify-content: center;
+      margin: 25px 0;
+    }
+    
+    .styles button {
+      background: linear-gradient(45deg, #8a2be2, #ff1493);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .styles button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #ff1493, #8a2be2);
+    }
+    
+    .save-btn {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 20px auto;
+      padding: 15px;
+      background: linear-gradient(45deg, #ffd700, #ff8c00);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .save-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+      background: linear-gradient(45deg, #ff8c00, #ffd700);
+    }
+    
+    /* Footer */
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin: 15px;
+    }
+    
+    .footer-section h4 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    
+    .footer-section p, .footer-section a {
+      color: #e0e0e0;
+      margin-bottom: 10px;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s;
+    }
+    
+    .footer-section a:hover {
+      color: #ffd700;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section li {
+      margin-bottom: 8px;
+    }
+    
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+      .main-container {
+        flex-direction: row;
+      }
+      
+      .logo {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        z-index: 100;
+      }
+      
+      .logo img {
+        height: 50px;
+      }
+      
+      .logo div {
+        font-size: 2.2rem;
+      }
+      
+      #canvas-container {
+        flex: 1;
+        min-height: 70vh;
+      }
+      
+      .controls {
+        width: 350px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
+        overflow-y: auto;
+        max-height: 100vh;
+      }
+      
+      .footer {
+        padding: 40px;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .logo div {
+        font-size: 2.5rem;
+      }
+      
+      .controls {
+        width: 400px;
+      }
+      
+      .colors button {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    /* Mobile-specific adjustments */
+    @media (max-width: 767px) {
+      .logo {
+        padding: 15px;
+      }
+      
+      .logo img {
+        height: 35px;
+      }
+      
+      .logo div {
+        font-size: 1.5rem;
+      }
+      
+      .controls {
+        padding: 15px;
+      }
+      
+      .controls h3 {
+        font-size: 1.5rem;
+      }
+      
+      .colors button {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .styles button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      
+      .save-btn {
+        width: 90%;
+        padding: 12px;
+        font-size: 1.1rem;
+      }
+      
+      .footer-section {
+        min-width: 100%;
+        text-align: center;
+      }
+    }
+    
+    /* Loading animation */
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffd700;
+      font-size: 1.2rem;
+      z-index: 5;
+    }
+    
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #ffd700;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
   <!-- Logo -->
   <header class="logo">
-    <img src="logo.png" alt="" height="50px">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjRkZENzAwIiBkPSJNNDQ0LjUgMjQ0LjVjLTIuNS0yLjUtNS45LTMuOS05LjUtMy45aC01OS44Yy0zLjYgMC03LjEgMS40LTkuNSAzLjlsLTE5LjUgMTkuNWMtNC43IDQuNy00LjcgMTIuMyAwIDE3bDE5LjUgMTkuNWM0LjcgNC43IDEyLjMgNC43IDE3IDBsMTkuNS0xOS41YzQuNy00LjcgNC43LTEyLjMgMC0xN3ptLTg5LjggMTE5LjhsLTE5LjUtMTkuNWMtNC43LTQuNy0xMi4zLTQuNy0xNyAwbC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTM1Mi41IDM2NC4zYy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTQ0NC41IDQ0NC41Yy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTI2NC41IDQ0NC41Yy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTM1Mi41IDE4NC4zYy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTQ0NC41IDEwNC41Yy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTI2NC41IDI2NC41Yy0yLjUtMi41LTUuOS0zLjktOS41LTMuOWgtNTkuOGMtMy42IDAtNy4xIDEuNC05LjUgMy45bC0xOS41IDE5LjVjLTQuNyA0LjctNC43IDEyLjMgMCAxN2wxOS41IDE5LjVjNC43IDQuNyAxMi4zIDQuNyAxNyAwbDE5LjUtMTkuNWM0LjctNC43IDQuNy0xMi4zIDAtMTd6Ii8+PHBhdGggZmlsbD0iI0ZGRDAwMCIgZD0iTTM1Mi41IDQ0LjVjLTIuNS0yLjUtNS45LTMuOS05LjUtMy45aC01OS44Yy0zLjYgMC03LjEgMS40LTkuNSAzLjlsLTE5LjUgMTkuNWMtNC43IDQuNy00LjcgMTIuMyAwIDE3bDE5LjUgMTkuNWM0LjcgNC43IDEyLjMgNC43IDE3IDBsMTkuNS0xOS41YzQuNy00LjcgNC43LTEyLjMgMC0xN3oiLz48L3N2Zz4=" alt="MOTIDHAGA Logo">
     <div>MOTTIDHAGGA</div>
   </header>
 
-  <!-- 3D Canvas -->
-  <div id="canvas-container"></div>
-
-  <!-- Controls -->
-  <div class="controls">
-    <h3>Customize Bracelet</h3>
-    
-    <div class="color-row" id="even-colors">
-      <h4>Even Beads (Light)</h4>
-      <div class="colors">
-        <button data-color="#ffb6c1"></button>
-        <button data-color="#f8c1d4"></button>
-        <button data-color="#ffd700"></button>
-        <button data-color="#00ffff"></button>
-        <button data-color="#ff69b4"></button>
+  <!-- Main content -->
+  <div class="main-container">
+    <!-- 3D Canvas -->
+    <div id="canvas-container">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading 3D Experience...</p>
       </div>
     </div>
 
-    <div class="color-row" id="odd-colors">
-      <h4>Odd Beads (Dark)</h4>
-      <div class="colors">
-        <button data-color="#4b0b3d"></button>
-        <button data-color="#8a2be2"></button>
-        <button data-color="#1e90ff"></button>
-        <button data-color="#ff4500"></button>
-        <button data-color="#ff1493"></button>
+    <!-- Controls -->
+    <div class="controls">
+      <h3>Customize Bracelet</h3>
+      
+      <div class="color-row" id="even-colors">
+        <h4>Even Beads (Light)</h4>
+        <div class="colors">
+          <button data-color="#ffb6c1"></button>
+          <button data-color="#f8c1d4"></button>
+          <button data-color="#ffd700"></button>
+          <button data-color="#00ffff"></button>
+          <button data-color="#ff69b4"></button>
+        </div>
       </div>
-    </div>
 
-    <div class="styles">
-      <button id="flip-style">Flip Style</button>
-    </div>
+      <div class="color-row" id="odd-colors">
+        <h4>Odd Beads (Dark)</h4>
+        <div class="colors">
+          <button data-color="#4b0b3d"></button>
+          <button data-color="#8a2be2"></button>
+          <button data-color="#1e90ff"></button>
+          <button data-color="#ff4500"></button>
+          <button data-color="#ff1493"></button>
+        </div>
+      </div>
 
-    <button onclick="saveDesign()" class="save-btn">Save My Design</button>
+      <div class="styles">
+        <button id="flip-style">Flip Style</button>
+      </div>
+
+      <button onclick="saveDesign()" class="save-btn">Save My Design</button>
+    </div>
   </div>
 
   <!-- Footer -->
-   
   <footer class="footer">
     <div class="footer-section">
       <h4>About Motidhaga</h4>
       <p>Premium Handmade jewelry for every style.</p>
-      
     </div>
     <div class="footer-section">
       <h4>Links</h4>
       <ul>
-        
         <li><a href="https://www.instagram.com/mottidhagga07/">Shop</a></li>
         <li><a href="whatsapp.com/channel/0029VbBYyEuAzNbvjho7PJ2f">Contact</a></li>
       </ul>
@@ -75,10 +417,258 @@
       <p>📞 +92 305 7002133</p>
       <a href="whatsapp.com/channel/0029VbBYyEuAzNbvjho7PJ2f" target="_blank">💬 WhatsApp</a>
     </div>
-    
   </footer>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script src="script.js"></script>
+  <script>
+    // ================= SETUP =================
+    const container = document.getElementById("canvas-container");
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1.5, 6);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Remove loading indicator
+    document.querySelector('.loading').style.display = 'none';
+
+    // ================= LIGHTS =================
+    // Enhanced lighting for brighter beads
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2)); // Increased ambient light
+    const pointLight = new THREE.PointLight(0xffffff, 1.8); // Increased point light
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+    
+    // Add additional lights for better illumination
+    const backLight = new THREE.PointLight(0xffffff, 0.8);
+    backLight.position.set(-5, 3, -5);
+    scene.add(backLight);
+    
+    const fillLight = new THREE.PointLight(0xffffff, 0.6);
+    fillLight.position.set(0, 5, 0);
+    scene.add(fillLight);
+
+    // ================= COLORS =================
+    const lightColors = ["#ffb6c1","#f8c1d4","#ffd700","#00ffff","#ff69b4"];
+    const darkColors = ["#4b0b3d","#8a2be2","#1e90ff","#ff4500","#ff1493"];
+    let colorEven = lightColors[0];
+    let colorOdd = darkColors[0];
+    let styleEvenOdd = true; // default pattern
+    let targetColors = [];
+
+    // ================= BRACELET =================
+    let bracelet = new THREE.Group();
+    scene.add(bracelet);
+    const beadCount = 28;
+    const radius = 1.3;
+
+    function createBracelet() {
+        bracelet.clear();
+        const spacing = 0.01;
+        for (let i = 0; i < beadCount; i++) {
+            const angle = (i / beadCount) * Math.PI * 2;
+            const bead = new THREE.Mesh(
+                new THREE.SphereGeometry(0.13, 32, 32),
+                new THREE.MeshStandardMaterial({
+                    color: styleEvenOdd ? (i%2===0 ? colorEven:colorOdd) : (i%2===0?colorOdd:colorEven),
+                    metalness: 0.95, // Increased metalness for shinier appearance
+                    roughness: 0.15, // Reduced roughness for more reflection
+                    emissive: styleEvenOdd ? (i%2===0 ? colorEven:colorOdd) : (i%2===0?colorOdd:colorEven), // Add emissive for glow
+                    emissiveIntensity: 0.2 // Subtle glow effect
+                })
+            );
+            bead.position.set(Math.cos(angle)*(radius+spacing), 0, Math.sin(angle)*(radius+spacing));
+            bracelet.add(bead);
+        }
+        updateTargetColors();
+    }
+
+    function scaleBracelet() {
+        const screenWidth = window.innerWidth;
+        const scaleFactor = Math.min(screenWidth * 0.7 / 800, 1.5); // 70% width, max 1.5x
+        bracelet.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    }
+
+    createBracelet();
+    scaleBracelet();
+
+    // ================= SPARKLES =================
+    const sparkleGeometry = new THREE.BufferGeometry();
+    const sparkleCount = 400;
+    const positions = new Float32Array(sparkleCount*3);
+    for(let i=0;i<sparkleCount*3;i++) positions[i]=(Math.random()-0.5)*4;
+    sparkleGeometry.setAttribute("position",new THREE.BufferAttribute(positions,3));
+    const sparkleMaterial = new THREE.PointsMaterial({color:0xffffff,size:0.03,transparent:true,opacity:0.6});
+    const sparkles = new THREE.Points(sparkleGeometry,sparkleMaterial);
+    scene.add(sparkles);
+
+    // ================= HEART BURST =================
+    let activeHearts = [];
+    function hexToRgb(hex) {
+        const bigint = parseInt(hex.replace('#',''),16);
+        return {r:(bigint>>16)&255,g:(bigint>>8)&255,b:bigint&255};
+    }
+
+    function triggerHeartBurst(colorHex) {
+        const burstCount = 50;
+        for(let i=0;i<burstCount;i++){
+            const geometry = new THREE.SphereGeometry(0.1,8,8); // ~20px
+            const material = new THREE.MeshStandardMaterial({
+                color:colorHex,
+                transparent:true,
+                opacity:1,
+                metalness: 0.8,
+                roughness: 0.2
+            });
+            const heart = new THREE.Mesh(geometry,material);
+            heart.position.set((Math.random()-0.5)*1.2,0,(Math.random()-0.5)*1.2);
+            heart.userData.velocity = new THREE.Vector3((Math.random()-0.5)*0.2,0.05+Math.random()*0.05,(Math.random()-0.5)*0.2);
+            heart.userData.life = 0;
+            scene.add(heart);
+            activeHearts.push(heart);
+        }
+    }
+
+    function animateHearts(){
+        for(let i=activeHearts.length-1;i>=0;i--){
+            const heart = activeHearts[i];
+            heart.position.add(heart.userData.velocity);
+            heart.userData.life+=0.016;
+            heart.material.opacity = 1 - heart.userData.life/2;
+            if(heart.userData.life>2){
+                scene.remove(heart);
+                activeHearts.splice(i,1);
+            }
+        }
+    }
+
+    // ================= COLOR TRANSITION =================
+    function updateTargetColors(){
+        targetColors = bracelet.children.map((bead,idx)=>{
+            const targetHex = styleEvenOdd? (idx%2===0?colorEven:colorOdd):(idx%2===0?colorOdd:colorEven);
+            return new THREE.Color(targetHex);
+        });
+    }
+
+    // ================= BUTTONS =================
+    document.querySelectorAll("#even-colors .colors button").forEach((btn,idx)=>{
+        btn.style.background = lightColors[idx%lightColors.length];
+        btn.addEventListener("click",()=>{
+            colorEven = lightColors[idx%lightColors.length];
+            createBracelet();
+            triggerHeartBurst(colorEven);
+        });
+    });
+
+    document.querySelectorAll("#odd-colors .colors button").forEach((btn,idx)=>{
+        btn.style.background = darkColors[idx%darkColors.length];
+        btn.addEventListener("click",()=>{
+            colorOdd = darkColors[idx%darkColors.length];
+            createBracelet();
+            triggerHeartBurst(colorOdd);
+        });
+    });
+
+    document.getElementById("flip-style").addEventListener("click",()=>{
+        styleEvenOdd = !styleEvenOdd;
+        createBracelet();
+    });
+
+    // ================= ANIMATION LOOP =================
+    function animate(){
+        requestAnimationFrame(animate);
+        bracelet.rotation.y += 0.004;
+        sparkles.rotation.y += 0.001;
+
+        // smooth color transition
+        bracelet.children.forEach((bead,idx)=>{
+            if(targetColors[idx]) bead.material.color.lerp(targetColors[idx],0.05);
+        });
+
+        animateHearts();
+        renderer.render(scene,camera);
+    }
+    animate();
+
+    // ================= DRAG =================
+    let isDragging = false;
+    let previousX = 0;
+    renderer.domElement.addEventListener("mousedown",e=>{isDragging=true;previousX=e.clientX;});
+    window.addEventListener("mouseup",()=>isDragging=false);
+    window.addEventListener("mousemove",e=>{
+        if(!isDragging) return;
+        const deltaX = e.clientX-previousX;
+        bracelet.rotation.y+=deltaX*0.005;
+        previousX=e.clientX;
+    });
+
+    // ================= TOUCH =================
+    renderer.domElement.addEventListener("touchstart",e=>{previousX=e.touches[0].clientX;});
+    renderer.domElement.addEventListener("touchmove",e=>{
+        const deltaX=e.touches[0].clientX-previousX;
+        bracelet.rotation.y+=deltaX*0.005;
+        previousX=e.touches[0].clientX;
+    });
+
+    // ================= ZOOM =================
+    window.addEventListener("wheel",e=>{
+        camera.position.z+=e.deltaY*0.002;
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z,3,8);
+    });
+
+    // ================= SAVE DESIGN =================
+    function saveDesign(){
+        renderer.render(scene,camera);
+        const link = document.createElement("a");
+        link.download="motidhaga-bracelet.png";
+        link.href = renderer.domElement.toDataURL("image/png");
+        link.click();
+    }
+    window.saveDesign = saveDesign;
+
+    // ================= RESIZE =================
+    window.addEventListener("resize",()=>{
+        camera.aspect = window.innerWidth/window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        scaleBracelet();
+    });
+    
+    // Handle initial positioning
+    function handlePositioning() {
+      if (window.matchMedia("(min-width: 768px)").matches) {
+        // Desktop: Make it fixed
+        document.querySelector('.logo').style.position = "fixed";
+        document.querySelector('.logo').style.top = "20px";
+        document.querySelector('.logo').style.left = "20px";
+      } else {
+        // Mobile: Make it normal/relative
+        document.querySelector('.logo').style.position = "relative";
+        document.querySelector('.logo').style.top = "0";
+        document.querySelector('.logo').style.left = "0";
+      }
+    }
+
+    // Run on page load
+    handlePositioning();
+
+    // Run whenever the screen is resized
+    window.addEventListener('resize', handlePositioning);
+    
+    function resizeCanvas() {
+      const canvas = document.getElementById('myCanvas');
+      if (canvas) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+  </script>
 </body>
+</html>
