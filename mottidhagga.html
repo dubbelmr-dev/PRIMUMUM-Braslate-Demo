@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mottidhagga - Instagram Jewelry Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+/* ================= BASIC RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  color: #333;
+  background: #fafafa;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ================= HEADER ================= */
+.header {
+  background: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #000;
+  letter-spacing: 1px;
+}
+
+.nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.nav a:hover {
+  background: #f0f0f0;
+}
+
+.nav a.active {
+  background: #000;
+  color: white;
+}
+
+.instagram-link {
+  display: flex;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.instagram-link i {
+  margin-right: 8px;
+  color: #E1306C;
+}
+
+/* ================= HERO ================= */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1611078489935-0cb964de46d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn {
+  padding: 14px 35px;
+  background: white;
+  color: #000;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border: 2px solid white;
+  margin: 0 10px;
+}
+
+.btn:hover {
+  background: transparent;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: #000;
+}
+
+/* ================= INSTAGRAM FEED ================= */
+.instagram-feed {
+  padding: 80px 0;
+  background: #fff;
+  text-align: center;
+}
+
+.instagram-feed .section-title {
+  margin-bottom: 30px;
+  font-size: 36px;
+  color: #000;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.instagram-feed .section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.instagram-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 250px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.instagram-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.instagram-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.instagram-item:hover img {
+  transform: scale(1.1);
+}
+
+.instagram-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-item:hover::after {
+  opacity: 1;
+}
+
+.instagram-item i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 30px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.instagram-item:hover i {
+  opacity: 1;
+}
+
+.instagram-btn {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 14px 35px;
+  background: #E1306C;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.instagram-btn:hover {
+  background: #c02757;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(225, 48, 108, 0.3);
+}
+
+.instagram-btn i {
+  margin-right: 8px;
+}
+
+/* ================= PRODUCTS ================= */
+.products {
+  padding: 80px 0;
+  background: #fafafa;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 36px;
+  color: #000;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* IMAGE AREA */
+.product-img {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* ZOOM EFFECT */
+.product-card:hover .product-img img {
+  transform: scale(1.1);
+}
+
+.product-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.product-info p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.product-card a.buy-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #E1306C;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-size: 13px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(225, 48, 108, 0.2);
+}
+
+.product-card a.buy-btn:hover {
+  background: #c02757;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.3);
+}
+
+/* ================= ABOUT ================= */
+.about {
+  padding: 80px 0;
+  background: white;
+  text-align: center;
+}
+
+.about-flex {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about h2 {
+  font-size: 36px;
+  color: #000;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.about h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #000;
+  border-radius: 2px;
+}
+
+.about p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.8;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 60px 0 30px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.footer h4 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.footer p {
+  color: #aaa;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.footer p:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.footer .social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.footer .social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #333;
+  border-radius: 50%;
+  color: #fff;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.footer .social-icons a:hover {
+  background: #E1306C;
+  transform: translateY(-3px);
+}
+
+.footer .copyright {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+}
+
+/* ================= MOBILE FIX ================= */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .hero p {
+    font-size: 18px;
+  }
+  
+  .section-title {
+    font-size: 28px;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .about h2 {
+    font-size: 28px;
+  }
+  
+  .about p {
+    font-size: 16px;
+  }
+  
+  .btn {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+  }
+  
+  .instagram-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  
+  .instagram-item {
+    height: 200px;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+  padding: 80px 30px 30px;
+  transition: all 0.4s ease;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu .close-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  color: #000;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.mobile-menu a {
+  display: block;
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 999;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+  </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="container header-flex">
+    <div class="logo">MOTTIDHAGGA</div>
+    <nav class="nav">
+      <a href="https://www.instagram.com/mottidhagga07/" class="instagram-link" target="_blank">
+        <i class="fab fa-instagram"></i> @mottidhagga07
+      </a>
+      <a href="https://www.instagram.com/direct/t/17846784180550647/" class="instagram-link" target="_blank">
+        <i class="fab fa-instagram"></i> DM Us To Order Now
+      </a>
+    </nav>
+    <div class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <div class="close-btn">
+    <i class="fas fa-times"></i>
+  </div>
+  <a href="https://www.instagram.com/mottidhagga07/" target="_blank">
+    <i class="fab fa-instagram"></i> @mottidhagga07
+  </a>
+  <a href="https://www.instagram.com/direct/t/17846784180550647/" target="_blank">
+    <i class="fab fa-instagram"></i> DM Us
+  </a>
+</div>
+
+<div class="overlay"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Handcrafted Jewelry for the Modern You</h1>
+    <p>Discover unique designs that blend elegance with contemporary style. Each piece is crafted to make you feel special.</p>
+    <div>
+      <a href="https://www.instagram.com/mottidhagga07/" class="btn" target="_blank">View Instagram</a>
+      <a href="https://www.instagram.com/direct/t/17846784180550647/" class="btn btn-outline" target="_blank">Message Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSTAGRAM FEED ================= -->
+<section class="instagram-feed">
+  <div class="container">
+    <h2 class="section-title">Our Instagram Moments</h2>
+    <p>See how our jewelry looks on real people and get style inspiration</p>
+    
+    <div class="instagram-grid">
+      <!-- Post 1 -->
+      <a href="https://www.instagram.com/p/DQ_1q2yjG8q/?img_index=1" target="_blank" class="instagram-item">
+        <img src="PIC1.png" alt="Instagram post">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+      <!-- Post 2 -->
+      <a href="https://www.instagram.com/p/DP8005OjK7h/?img_index=1" target="_blank" class="instagram-item">
+        <img src="PIC2.png" alt="Instagram post">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+      <!-- Post 3 -->
+      <a href="https://www.instagram.com/p/DPMtOrWCEi1/?img_index=1" target="_blank" class="instagram-item">
+        <img src="PIC3.png" alt="Instagram post">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+      <!-- Post 4 -->
+      <a href="https://www.instagram.com/p/DN79QmjiOba/?img_index=1" target="_blank" class="instagram-item">
+        <img src="PIC4.png" alt="Instagram post">
+        <i class="fab fa-instagram"></i>
+      </a>
+      
+      <!-- Post 5 -->
+      <a href="https://www.instagram.com/p/DN8BG-nCIFF/?img_index=1" target="_blank" class="instagram-item">
+        <img src="PIC5.png" alt="Instagram post">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+    
+    <a href="https://www.instagram.com/mottidhagga07/" class="instagram-btn" target="_blank">
+      <i class="fab fa-instagram"></i> Follow @mottidhagga07
+    </a>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products">
+  <div class="container">
+    <h2 class="section-title">Featured Pieces</h2>
+
+    <div class="product-grid">
+
+      <!-- PRODUCT 1 - Links to Post 1 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="PIC1.png" class="main-img">
+        </div>
+        <div class="product-info">
+          <h3>Cherry on top of pearls🍒🤍</h3>
+          <p>$25.99</p>
+          <a href="https://www.instagram.com/p/DQ_1q2yjG8q/?img_index=1" class="buy-btn" target="_blank">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 2 - Links to Post 2 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="PIC2.png" class="main-img">
+        </div>
+        <div class="product-info">
+          <h3>Cute panda vibes 🐼💖</h3>
+          <p>$25.99</p>
+          <a href="https://www.instagram.com/p/DP8005OjK7h/?img_index=1" class="buy-btn" target="_blank">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 3 - Links to Post 3 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="PIC3.png" class="main-img">
+        </div>
+        <div class="product-info">
+          <h3>Pearl & brown beaded bracelets 💎✨</h3>
+          <p>$29.99</p>
+          <a href="https://www.instagram.com/p/DPMtOrWCEi1/?img_index=1" class="buy-btn" target="_blank">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 4 - Links to Post 4 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="PIC4.png" class="main-img">
+        </div>
+        <div class="product-info">
+          <h3>Delicate vibes, bold charm ✨</h3>
+          <p>$29.99</p>
+          <a href="https://www.instagram.com/p/DN79QmjiOba/?img_index=1" class="buy-btn" target="_blank">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- PRODUCT 5 - Links to Post 5 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="PIC5.png" class="main-img">
+        </div>
+        <div class="product-info">
+          <h3>Tiny charm, big vibe ✨📱</h3>
+          <p>$29.99</p>
+          <a href="https://www.instagram.com/p/DN8BG-nCIFF/?img_index=1" class="buy-btn" target="_blank">Buy Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about">
+  <div class="container about-flex">
+    <h2>About Mottidhagga</h2>
+    <p>
+      We create handcrafted jewelry for the modern individual who values authenticity and style. 
+      Each piece is designed to celebrate your unique beauty and personality. 
+      Follow us on Instagram to see our latest creations and styling tips.
+    </p>
+    <p>
+      Our jewelry is made with sustainable practices and ethically sourced materials. 
+      We believe in creating pieces that not only look beautiful but also make a positive impact.
+    </p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h4>Connect With Us</h4>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/mottidhagga07/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.instagram.com/direct/t/17846784180550647/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="https://www.instagram.com/mottidhagga07/" style="color: #aaa; text-decoration: none;" target="_blank">Instagram</a></p>
+      <p><a href="https://www.instagram.com/direct/t/17846784180550647/" style="color: #aaa; text-decoration: none;" target="_blank">Message Us</a></p>
+    </div>
+  </div>
+
+  <p class="copyright">
+    © 2026 Mottidhagga Jewelry | @mottidhagga07
+  </p>
+</footer>
+
+<script>
+// Mobile menu toggle
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const closeBtn = document.querySelector('.close-btn');
+const mobileMenu = document.querySelector('.mobile-menu');
+const overlay = document.querySelector('.overlay');
+
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.add('active');
+  overlay.classList.add('active');
+});
+
+closeBtn.addEventListener('click', () => {
+  mobileMenu.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+overlay.addEventListener('click', () => {
+  mobileMenu.classList.remove('active');
+  overlay.classList.remove('active');
+});
+</script>
+
+</body>
+</html>
